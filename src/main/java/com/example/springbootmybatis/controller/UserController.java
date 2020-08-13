@@ -1,5 +1,6 @@
 package com.example.springbootmybatis.controller;
 
+import com.example.springbootmybatis.common.CheckRepeatData;
 import com.example.springbootmybatis.entity.User;
 import com.example.springbootmybatis.service.UserService;
 import com.oracle.tools.packager.Log;
@@ -12,10 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/yff")
@@ -46,6 +44,7 @@ public class UserController {
         }else{
             map.put(user.getName(),user.getName());
         }
+//        CheckRepeatData.ins().CheckRepeatData(new ArrayList<>());
         return userService.insert(user);
 
     }
