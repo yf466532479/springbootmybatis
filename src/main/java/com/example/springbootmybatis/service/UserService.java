@@ -8,4 +8,5 @@ import java.util.List;
 public interface UserService {
 
     List<User> queryInfo(String id);
+    Boolean insert(User user);
 }

@@ -4,6 +4,7 @@ import com.example.springbootmybatis.entity.User;
 import com.example.springbootmybatis.service.UserService;
 import com.oracle.tools.packager.Log;
 import com.sun.tools.javac.util.Assert;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,27 +19,36 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/yff")
+@Slf4j
 public class UserController {
 
     @Autowired
     UserService userService;
-    //保证幂等性的一种方法， 查询方法本身就是幂等的，但是不想写 insert方法了 所以就写在一个方法里了
+    //保证幂等性的一种方法， 查询方法本身就是幂等的
     private Map<String,Object> map = new HashMap<>();
     @PostMapping("/queryinfo")
     public Object queryInfo(@RequestBody User user){
 
-        String id = user.getId();
+        String id = String.valueOf(user.getId());
         if(StringUtils.isEmpty(id)){
             return "输入查询参数";
-        }
-        boolean b = map.containsKey(id);
-        if(b){
-            return "我只准你查询一遍";
-        }else{
-            map.put(id,id);
         }
         List<User> list = userService.queryInfo(id);
         return list;
     }
+
+    @PostMapping("/insert")
+    public Object insert(@RequestBody User user){
+
+        boolean b = map.containsKey(user.getName());
+        if(b){
+            return "新增重复";
+        }else{
+            map.put(user.getName(),user.getName());
+        }
+        return userService.insert(user);
+
+    }
+
 
 }
