@@ -12,6 +12,7 @@ import java.util.List;
 public interface UserMapper {
 
     List<User> queryInfo(String id);
+    List<User> queryall();
     Boolean insert(@Param("user") User user);
 
 }

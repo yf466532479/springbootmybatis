@@ -1,5 +1,6 @@
 package com.example.springbootmybatis.controller;
 
+import com.example.springbootmybatis.annotations.CheckRepeatSubmit;
 import com.example.springbootmybatis.common.CheckRepeatData;
 import com.example.springbootmybatis.entity.User;
 import com.example.springbootmybatis.service.UserService;
@@ -14,16 +15,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("/yff")
 @Slf4j
+
 public class UserController {
 
     @Autowired
     UserService userService;
     //保证幂等性的一种方法， 查询方法本身就是幂等的
     private Map<String,Object> map = new HashMap<>();
+
+    @CheckRepeatSubmit
     @PostMapping("/queryinfo")
     public Object queryInfo(@RequestBody User user){
 
@@ -32,6 +37,18 @@ public class UserController {
             return "输入查询参数";
         }
         List<User> list = userService.queryInfo(id);
+        return list;
+    }
+
+
+    @PostMapping("/queryall")
+    public Object queryall(@RequestBody User user) throws ExecutionException, InterruptedException {
+
+//        String id = String.valueOf(user.getId());
+//        if(StringUtils.isEmpty(id)){
+//            return "输入查询参数";
+//        }
+        List<User> list = userService.queryall();
         return list;
     }
 

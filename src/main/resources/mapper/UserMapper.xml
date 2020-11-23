@@ -7,6 +7,11 @@
                 id = #{id}
     </select>
 
+    <select id="queryall" resultType="com.example.springbootmybatis.entity.User">
+        SELECT * from user
+
+    </select>
+
     <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.example.springbootmybatis.entity.User">
         insert into
             user(name,age,sex)
