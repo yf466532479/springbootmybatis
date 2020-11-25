@@ -2,20 +2,14 @@ package com.example.springbootmybatis.controller;
 
 import com.example.springbootmybatis.annotations.CheckRepeatSubmit;
 import com.example.springbootmybatis.aop.HttpLister;
-import com.example.springbootmybatis.common.CheckRepeatData;
 import com.example.springbootmybatis.entity.User;
 import com.example.springbootmybatis.service.UserService;
-import com.oracle.tools.packager.Log;
-import com.sun.tools.javac.util.Assert;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -32,6 +26,12 @@ public class UserController {
     UserService userService;
     //保证幂等性的一种方法， 查询方法本身就是幂等的
     private Map<String,Object> map = new HashMap<>();
+
+
+    @GetMapping("/hello")
+    public String hello() {
+        return "hello";
+    }
 
 
     /**

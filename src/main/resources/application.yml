@@ -6,9 +6,14 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
+  security:
+    user:
+      name: javaboy
+      password: 123
 mybatis:
   mapper-locations: classpath*:mapper/*Mapper.xml
   type-aliases-package: com.example.springbootmybatis.entity
   #当 logback 为info  设置这个 可以打印sql语句。
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
